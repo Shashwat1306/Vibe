@@ -1,8 +1,9 @@
-import { Button } from '@/components/ui/button';
 
-const page = () => {
+const page = async () => {
   return (
-    <Button variant="destructive">Click me!</Button>
+    <div>
+      Hello world!
+    </div>
     )
 }
 
