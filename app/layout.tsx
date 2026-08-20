@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 import { TRPCReactProvider } from "@/trpc/client";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "next-themes";
@@ -26,6 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <TRPCReactProvider>
     <html lang="en" suppressHydrationWarning>
       <body
@@ -43,5 +45,6 @@ export default function RootLayout({
       </body>
     </html>
     </TRPCReactProvider>
+    </ClerkProvider>
   );
 }
