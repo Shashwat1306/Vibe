@@ -27,8 +27,8 @@ export const ProjectView = ({ projectId }: Props) => {
   const [activeFragment, setActiveFragment] = useState<Fragment | null>(null);
   const [TabState, setTabState] = useState<"preview" | "code">("preview");
   return (
-    <div>
-      <ResizablePanelGroup orientation="horizontal">
+    <div className="h-svh">
+      <ResizablePanelGroup orientation="horizontal" className="h-full">
         <ResizablePanel
           defaultSize={35}
           minSize={20}
