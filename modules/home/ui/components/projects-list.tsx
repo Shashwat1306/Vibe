@@ -24,14 +24,14 @@ export const ProjectsList=()=>{
                     variant="outline"
                     className="font-normal h-auto justify-start w-full text-start p-4"
                     asChild>
-                        <Link href={`{/projects/${project.id}`}>
+                        <Link href={`/projects/${project.id}`}>
                         <div className="flex items-center gap-x-4">
                             <Image
                             src="/logo.svg"
                             alt="Vibe"
                             width={32}
                             height={32}
-                            className="Object-contain"
+                            className="object-contain"
                             />
                             <div className="flex flex-col">
                                 <h3 className="truncate font-medium">

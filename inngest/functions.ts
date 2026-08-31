@@ -1,5 +1,5 @@
 import { inngest } from "./client";
-import { openai, createAgent,createTool, createNetwork, type Tool, type Message ,createState} from "@inngest/agent-kit";
+import { gemini, createAgent,createTool, createNetwork, type Tool, type Message ,createState} from "@inngest/agent-kit";
 import { Sandbox } from "@e2b/code-interpreter";
 import { getSandbox, lastAssistantTextMessageContent } from "./utils";
 import {z} from "zod";
@@ -58,12 +58,13 @@ export const codeAgentFunction = inngest.createFunction(
       name: "codeAgent",
       description: "An expert coding agent",
       system: PROMPT,
-      model: openai({ 
-        model: "gpt-4.1-mini",
-        apiKey: process.env.OPENAI_API_KEY,
-        baseUrl: process.env.OPENAI_BASE_URL,
+      model: gemini({ 
+        model: "gemini-2.5-flash",
+        apiKey: process.env.GEMINI_API_KEY!,
         defaultParameters:{
-          temperature:0.1,
+          generationConfig:{
+            temperature:0.1,
+          }
         }
       }),
       tools:[
@@ -182,20 +183,18 @@ export const codeAgentFunction = inngest.createFunction(
       name:"fragment-Title-Generator",
       description:"A fragment title generator",
       system: FRAGMENT_TITLE_PROMPT,
-      model: openai({
-        model: "gpt-4.1-mini",
-        apiKey: process.env.OPENAI_API_KEY,
-        baseUrl: process.env.OPENAI_BASE_URL,
+      model: gemini({
+        model: "gemini-2.5-flash",
+        apiKey: process.env.GEMINI_API_KEY!,
       })
     })
      const responseGenerator=createAgent({
       name:"response-Generator",
       description:"A response generator",
       system: RESPONSE_PROMPT,
-      model: openai({
-        model: "gpt-4.1-mini",
-        apiKey: process.env.OPENAI_API_KEY,
-        baseUrl: process.env.OPENAI_BASE_URL,
+      model: gemini({
+        model: "gemini-2.5-flash",
+        apiKey: process.env.GEMINI_API_KEY!,
       })
     })
     const {output:fragmentTitleOutput} = await fragmentTitleGenerator.run(result.state.data.summary);
