@@ -9,11 +9,17 @@ const GENERATION_COST=1;
 
 export async function getUsageTracker(){
     const { has } = await auth();
-    const hasProAccess=has({plan: "pro"}); 
+    let hasProAccess = false;
+    try {
+        hasProAccess = has({ plan: "pro" });
+    } catch {
+        // Clerk dev keys or no billing configured — default to free tier
+        hasProAccess = false;
+    }
     const usageTracker = new RateLimiterPrisma({
         storeClient: prisma,
         tableName: "usage",
-        points: hasProAccess?PRO_POINTS:FREE_POINTS,
+        points: hasProAccess ? PRO_POINTS : FREE_POINTS,
         duration: DURATION,
     });
     return usageTracker;
